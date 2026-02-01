@@ -1,0 +1,36 @@
+package main
+
+import "github.com/therecipe/qt/widgets"
+
+type {{.Name}} struct {
+	*widgets.QMainWindow
+
+{{range .Widgets}}
+	{{.Name}} {{.QtType}}
+{{end}}
+}
+
+func New{{.Name}}() *{{.Name}} {
+	f := &{{.Name}}{
+		QMainWindow: widgets.NewQMainWindow(nil, 0),
+	}
+	f.SetWindowTitle("{{.Title}}")
+	f.SetFixedSize2({{.Width}}, {{.Height}})
+
+	central := widgets.NewQWidget(nil, 0)
+	f.SetCentralWidget(central)
+
+{{range .Widgets}}
+	// {{.Name}} initialization
+	{{.InitCode}}
+{{end}}
+
+	return f
+}
+
+{{range .EventHandlers}}
+func (f *{{$.Name}}) {{.Name}}() {
+	// TODO: Add your code here
+}
+
+{{end}}

@@ -1,0 +1,28 @@
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Build artifacts
+*.syso
+
+# IDE/editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Config files (user-specific)
+vgeditor.ini
+vgeditor.config
+
+# Old Qt code (archived)
+_old_qt/
+
+# Old Qt deployment files
+deploy/
+
+# Test binaries
+vg
+qtbox

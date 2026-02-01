@@ -1,0 +1,77 @@
+{{/* Button */}}
+{{define "Button"}}
+f.{{.Name}} = widgets.NewQPushButton2("{{.Text}}", central)
+f.{{.Name}}.SetGeometry2({{.X}}, {{.Y}}, {{.Width}}, {{.Height}})
+{{if .OnClick}}f.{{.Name}}.ConnectClicked(func(bool) { f.{{.OnClick}}() }){{end}}
+{{end}}
+
+{{/* Label */}}
+{{define "Label"}}
+f.{{.Name}} = widgets.NewQLabel2("{{.Text}}", central, 0)
+f.{{.Name}}.SetGeometry2({{.X}}, {{.Y}}, {{.Width}}, {{.Height}})
+{{end}}
+
+{{/* TextBox */}}
+{{define "TextBox"}}
+f.{{.Name}} = widgets.NewQLineEdit(central)
+f.{{.Name}}.SetGeometry2({{.X}}, {{.Y}}, {{.Width}}, {{.Height}})
+{{if .Text}}f.{{.Name}}.SetText("{{.Text}}"){{end}}
+{{if .OnTextChanged}}f.{{.Name}}.ConnectTextChanged(func(string) { f.{{.OnTextChanged}}() }){{end}}
+{{end}}
+
+{{/* CheckBox */}}
+{{define "CheckBox"}}
+f.{{.Name}} = widgets.NewQCheckBox2("{{.Text}}", central)
+f.{{.Name}}.SetGeometry2({{.X}}, {{.Y}}, {{.Width}}, {{.Height}})
+{{if .Checked}}f.{{.Name}}.SetChecked(true){{end}}
+{{end}}
+
+{{/* RadioButton */}}
+{{define "RadioButton"}}
+f.{{.Name}} = widgets.NewQRadioButton2("{{.Text}}", central)
+f.{{.Name}}.SetGeometry2({{.X}}, {{.Y}}, {{.Width}}, {{.Height}})
+{{if .Checked}}f.{{.Name}}.SetChecked(true){{end}}
+{{end}}
+
+{{/* ListBox */}}
+{{define "ListBox"}}
+f.{{.Name}} = widgets.NewQListWidget(central)
+f.{{.Name}}.SetGeometry2({{.X}}, {{.Y}}, {{.Width}}, {{.Height}})
+{{range .Items}}
+f.{{$.Name}}.AddItem("{{.}}")
+{{end}}
+{{end}}
+
+{{/* ComboBox */}}
+{{define "ComboBox"}}
+f.{{.Name}} = widgets.NewQComboBox(central)
+f.{{.Name}}.SetGeometry2({{.X}}, {{.Y}}, {{.Width}}, {{.Height}})
+{{range .Items}}
+f.{{$.Name}}.AddItem("{{.}}", nil)
+{{end}}
+{{end}}
+
+{{/* Table */}}
+{{define "Table"}}
+f.{{.Name}} = widgets.NewQTableWidget(central)
+f.{{.Name}}.SetGeometry2({{.X}}, {{.Y}}, {{.Width}}, {{.Height}})
+f.{{.Name}}.SetColumnCount({{len .Columns}})
+f.{{.Name}}.SetRowCount({{.RowCount}})
+f.{{.Name}}.SetHorizontalHeaderLabels([]string{ {{range $i, $c := .Columns}}{{if $i}}, {{end}}"{{$c}}"{{end}} })
+{{end}}
+
+{{/* TreeView */}}
+{{define "TreeView"}}
+f.{{.Name}} = widgets.NewQTreeWidget(central)
+f.{{.Name}}.SetGeometry2({{.X}}, {{.Y}}, {{.Width}}, {{.Height}})
+{{if .HeaderLabel}}f.{{.Name}}.SetHeaderLabel("{{.HeaderLabel}}"){{end}}
+{{end}}
+
+{{/* TabControl */}}
+{{define "TabControl"}}
+f.{{.Name}} = widgets.NewQTabWidget(central)
+f.{{.Name}}.SetGeometry2({{.X}}, {{.Y}}, {{.Width}}, {{.Height}})
+{{range .Tabs}}
+f.{{$.Name}}.AddTab(widgets.NewQWidget(nil, 0), "{{.}}")
+{{end}}
+{{end}}

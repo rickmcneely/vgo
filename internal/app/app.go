@@ -360,6 +360,7 @@ func (a *App) initializePanels(toolboxContainer, designerContainer, outputContai
 	}
 	a.propsPanel.SetOnPropertyChanged(a.onPropertyChanged)
 	a.propsPanel.SetOnFormPropertyChanged(a.onFormPropertyChanged)
+	a.propsPanel.SetRegistry(a.registry)
 	log.Println("Properties panel created")
 
 	// Initialize output panel
@@ -470,6 +471,26 @@ func (a *App) onFormPropertyChanged(form *vgofile.Form, propName string, value i
 	case "Height":
 		if i, ok := value.(int); ok {
 			form.Height = i
+		}
+	case "ControlBox":
+		if b, ok := value.(bool); ok {
+			form.ControlBox = b
+		}
+	case "MinimizeBox":
+		if b, ok := value.(bool); ok {
+			form.MinimizeBox = b
+		}
+	case "MaximizeBox":
+		if b, ok := value.(bool); ok {
+			form.MaximizeBox = b
+		}
+	case "Resizable":
+		if b, ok := value.(bool); ok {
+			form.Resizable = b
+		}
+	case "StartPosition":
+		if s, ok := value.(string); ok {
+			form.StartPos = s
 		}
 	}
 	a.designerCanvas.Refresh()

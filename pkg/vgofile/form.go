@@ -7,21 +7,31 @@ import (
 
 // Form represents a visual form/window
 type Form struct {
-	Name     string     `json:"name"`
-	Text     string     `json:"text"`
-	Width    int        `json:"width"`
-	Height   int        `json:"height"`
-	Controls []*Control `json:"controls,omitempty"`
+	Name        string     `json:"name"`
+	Text        string     `json:"text"`
+	Width       int        `json:"width"`
+	Height      int        `json:"height"`
+	MinimizeBox bool       `json:"minimizeBox"`
+	MaximizeBox bool       `json:"maximizeBox"`
+	ControlBox  bool       `json:"controlBox"`
+	Resizable   bool       `json:"resizable"`
+	StartPos    string     `json:"startPos,omitempty"` // CenterScreen, CenterParent, Manual
+	Controls    []*Control `json:"controls,omitempty"`
 }
 
 // NewForm creates a new form with default settings
 func NewForm(name string) *Form {
 	return &Form{
-		Name:     name,
-		Text:     name,
-		Width:    400,
-		Height:   300,
-		Controls: make([]*Control, 0),
+		Name:        name,
+		Text:        name,
+		Width:       400,
+		Height:      300,
+		MinimizeBox: true,
+		MaximizeBox: true,
+		ControlBox:  true,
+		Resizable:   true,
+		StartPos:    "CenterScreen",
+		Controls:    make([]*Control, 0),
 	}
 }
 
@@ -66,11 +76,16 @@ func (f *Form) GenerateControlName(controlType string) string {
 // Clone creates a deep copy of the form
 func (f *Form) Clone() *Form {
 	clone := &Form{
-		Name:     f.Name,
-		Text:     f.Text,
-		Width:    f.Width,
-		Height:   f.Height,
-		Controls: make([]*Control, len(f.Controls)),
+		Name:        f.Name,
+		Text:        f.Text,
+		Width:       f.Width,
+		Height:      f.Height,
+		MinimizeBox: f.MinimizeBox,
+		MaximizeBox: f.MaximizeBox,
+		ControlBox:  f.ControlBox,
+		Resizable:   f.Resizable,
+		StartPos:    f.StartPos,
+		Controls:    make([]*Control, len(f.Controls)),
 	}
 	for i, c := range f.Controls {
 		clone.Controls[i] = c.Clone()
